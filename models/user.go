@@ -13,9 +13,3 @@ type User struct {
 	TokenExpiry time.Time `json:"token_expiry,omitempty"`
 	CreatedAt   time.Time `json:"created_at,omitempty"`
 }
-
-type PasswordReset struct {
-	UserID    int       `json:"user_id"`
-	Token     string    `json:"token"`
-	CreatedAt time.Time `json:"created_at"`
-}
