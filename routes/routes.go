@@ -27,8 +27,14 @@ func InitializeRoutes() *mux.Router {
 	// User Sign-Up
 	router.HandleFunc("/api/signup", controllers.SignUp).Methods("POST")
 
-	//User Sign-In
+	// User Sign-In
 	router.HandleFunc("/api/signin", controllers.SignIn).Methods("POST")
+
+	// New route for reset password
+	router.HandleFunc("/api/reset-password", controllers.ResetPassword).Methods("POST")
+
+	// New route for forgot password
+	router.HandleFunc("/api/forgot-password", controllers.ForgotPassword).Methods("POST")
 
 	return router
 }
