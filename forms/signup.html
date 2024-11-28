@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+   
     <h1>Sign Up</h1>
     <form id="signupForm">
       <label for="name">Name:</label>
@@ -67,10 +68,10 @@
   
         // Success response
         alert('Sign up successful!');
-        window.location.href = "/signin.html";
+        window.location.href = "/signin.html"; // Redirect to Sign-In page after successful sign up
       } catch (error) {
         console.error('Error:', error);
-        alert('Sign up failed: ' + error.message);
+        alert('Sign up failed: ' + error.message); // Show error message if any
       } finally {
         // Re-enable the submit button
         submitButton.disabled = false;

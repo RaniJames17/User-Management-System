@@ -152,6 +152,12 @@
     margin-bottom: 20px;
     border-radius: 8px;
   }
+  /* Adding focus styles for accessibility */
+.btn:focus, .home-link:focus {
+  outline: 3px solid #4A90E2;
+  outline-offset: 2px;
+}
+
   
   /* Center the content and add spacing */
   .container {
@@ -190,3 +196,18 @@
     background-color: #357ab7;
   }
   
+  /* Style for the Home link */
+/* Style for the Home link */
+.home-link {
+  position: absolute;  /* Absolute positioning */
+  top: 20px;           /* Distance from the top */
+  right: 20px;         /* Distance from the right */
+  color: blue;         /* Blue text color */
+  font-weight: bold;   /* Bold font */
+  text-decoration: none; /* Remove underline */
+}
+
+.home-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
