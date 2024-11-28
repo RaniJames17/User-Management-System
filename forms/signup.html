@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - User Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sign Up</h1>
+    <form id="signupForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); // Prevent default form submission
+  
+      // Disable the submit button to prevent multiple clicks
+      const submitButton = document.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+  
+      // Collect form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+  
+      try {
+        // Send the data to the backend
+        const response = await fetch('http://localhost:8080/api/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+  
+        let errorMessage = 'Request failed';  // Default error message
+  
+        if (!response.ok) {
+          // Read the response body once
+          const responseBody = await response.text(); // Get body as text first
+  
+          // Try to parse the response as JSON, if it's not JSON, fall back to raw text
+          try {
+            const errorData = JSON.parse(responseBody);
+            errorMessage = errorData?.error || errorData?.message || 'Unknown error';
+          } catch (jsonError) {
+            errorMessage = responseBody || 'Request failed';
+          }
+  
+          throw new Error(errorMessage);
+        }
+  
+        const data = await response.json(); // If the response is OK, parse JSON
+  
+        // Success response
+        alert('Sign up successful!');
+        window.location.href = "/signin.html";
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Sign up failed: ' + error.message);
+      } finally {
+        // Re-enable the submit button
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+  
+</body>
+</html>

@@ -20,7 +20,7 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&credentials)
 	if err != nil {
 		log.Printf("Error decoding request body: %v", err)
-		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+		http.Error(w, "Invalid", http.StatusBadRequest)
 		return
 	}
 
@@ -37,13 +37,17 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 	err = row.Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
 		log.Printf("Error fetching user: %v", err)
-		http.Error(w, "Invalid email or password", http.StatusUnauthorized)
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, `{"error": "Invalid email or password"}`, http.StatusUnauthorized)
+
 		return
 	}
 
 	// Verify the password
 	if !utils.CheckPasswordHash(credentials.Password, user.Password) {
-		http.Error(w, "Invalid email or password", http.StatusUnauthorized)
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, `{"error": "Invalid email or password"}`, http.StatusUnauthorized)
+
 		return
 	}
 
@@ -103,9 +107,12 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return success response
+	// Log and return success response
+	response := map[string]string{"status": "success", "message": "User created successfully"}
+	log.Printf("Sending response: %+v", response)
+
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(map[string]string{"message": "User created successfully"})
+	json.NewEncoder(w).Encode(response)
 }
 
 func ForgotPassword(w http.ResponseWriter, r *http.Request) {
@@ -191,7 +198,6 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Parse the created_at string into a time.Time object
-	// Use the correct format for parsing the timestamp
 	reset.CreatedAt, err = time.Parse("2006-01-02 15:04:05", createdAtString)
 	if err != nil {
 		log.Printf("Error parsing created_at: %v", err)
@@ -228,9 +234,13 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		log.Println("Failed to delete reset token:", err)
 	}
 
-	// Return success response
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{
+	// Log and return success response
+	response := map[string]string{
+		"status":  "success",
 		"message": "Password has been successfully reset.",
-	})
+	}
+	log.Printf("Sending response: %+v", response)
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }

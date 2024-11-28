@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome - User Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the User Management System!</h1>
+    <img src="https://blog.darwinbox.com/hubfs/Blog%20Image-2.png" alt="Welcome" class="welcome-image">
+    <p>Your account has been successfully created. We are excited to have you!</p>
+
+    <!-- Sign out button -->
+    <button id="signoutButton" class="btn">Sign Out</button>
+  </div>
+
+  <script>
+    // Sign-out functionality
+    document.getElementById('signoutButton')?.addEventListener('click', function() {
+      // Clear the token from localStorage
+      localStorage.removeItem('token');
+      
+      // Redirect to sign-in page
+      window.location.href = 'signin.html';
+    });
+  </script>
+</body>
+</html>
