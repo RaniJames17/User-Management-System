@@ -220,8 +220,8 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Update the user's password
-	updateQuery := "UPDATE users SET password_hash = ? WHERE id = ?"
-	_, err = database.ExecuteQuery(updateQuery, hashedPassword, reset.UserID)
+	upQuery := "UPDATE users SET password_hash = ? WHERE id = ?"
+	_, err = database.ExecuteQuery(upQuery, hashedPassword, reset.UserID)
 	if err != nil {
 		http.Error(w, "Failed to update password", http.StatusInternalServerError)
 		return
