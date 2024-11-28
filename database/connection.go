@@ -13,7 +13,7 @@ func Connect() {
 	// Define the MySQL DSN (adjust user/password as per your Docker configuration)
 	dsn := "rani:1234@tcp(localhost:3306)/user_management"
 
-	var err error
+	var err err
 	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
