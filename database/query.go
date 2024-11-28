@@ -14,7 +14,7 @@ func ExecuteQuery(query string, args ...interface{}) (sql.Result, error) {
 	defer stmt.Close()
 
 	result, err := stmt.Exec(args...)
-	if err != nil {
+	if error != nil {
 		log.Printf("Error executing query: %v", err)
 		return nil, err
 	}
