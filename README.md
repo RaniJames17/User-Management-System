@@ -48,8 +48,8 @@ To get the application running with Docker, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository-url.git
-   cd your-repository-name
+   git clone https://github.com/RaniJames17/User-Management-System.git
+   cd User-Management-System
    ```
 
 2. Create a Docker network for your services:
@@ -67,10 +67,10 @@ To get the application running with Docker, follow these steps:
          image: mysql:8.0
          container_name: mysql-container
          environment:
-           MYSQL_ROOT_PASSWORD: rootpassword
+           MYSQL_ROOT_PASSWORD: root
            MYSQL_DATABASE: user_management
-           MYSQL_USER: user
-           MYSQL_PASSWORD: userpassword
+           MYSQL_USER: rani
+           MYSQL_PASSWORD: 1234
          ports:
            - "3306:3306"
          networks:
